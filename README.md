@@ -24,7 +24,7 @@ It will fire a total of 6 redis instances with following configuration:
 
 |Master Name|
 |:---:|
-|redis_dev_master|
+|mymaster|
 
 To confirm that everything is working fine, you can check for ROLE of every node. Here is the sample output.
 
@@ -66,7 +66,7 @@ $ redis-cli -p 6381 ROLE
 ```sh
 $ redis-cli -p 26379 ROLE
   1) "sentinel"
-  2) 1) "redis_dev_master"
+  2) 1) "mymaster"
 ```
 
 ###### sentinel 2:
@@ -74,7 +74,7 @@ $ redis-cli -p 26379 ROLE
 ```sh
 $ redis-cli -p 26380 ROLE
   1) "sentinel"
-  2) 1) "redis_dev_master"
+  2) 1) "mymaster"
 ```
 
 ###### sentinel 3:
@@ -82,13 +82,13 @@ $ redis-cli -p 26380 ROLE
 ```sh
 $ redis-cli -p 26381 ROLE
   1) "sentinel"
-  2) 1) "redis_dev_master"
+  2) 1) "mymaster"
 ```
 
 ## How to use this image
 
 ```sh
-$ docker run -d --name redis_sentinel_dev -p 6379:6379 -p 6380:6380 -p 6381:6381 -p 26379:26379 -p 26380:26380 -p 26381:26381 yesuagg/redis-sentinel-cluster:0.1.0
+$ docker run -d --name myredis -p 6379:6379 -p 6380:6380 -p 6381:6381 -p 26379:26379 -p 26380:26380 -p 26381:26381 artal/redis-cluster-mymaster:1.0.0
 ```
 
 or the easier solution would be to run it using docker compose. Have a docker-compose.yml similar to one in this repo and run:
