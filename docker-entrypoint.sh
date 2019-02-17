@@ -5,13 +5,17 @@ cp /sentinel.conf /sentinel_1.conf
 cp /sentinel.conf /sentinel_2.conf
 cp /sentinel.conf /sentinel_3.conf
 
-redis-server --daemonize yes
+cp /redis.conf /redis_1.conf
+cp /redis.conf /redis_2.conf
+cp /redis.conf /redis_3.conf
+
+redis-server /redis_1.conf --daemonize yes
 if [ $? -eq 0 ]; then
 	echo "MASTER  \t PORT: 6379"
-    redis-server --port 6380 --slaveof 127.0.0.1 6379 --daemonize yes
+    redis-server /redis_2.conf --port 6380 --slaveof 127.0.0.1 6379 --daemonize yes
 	if [ $? -eq 0 ]; then
 		echo "SLAVE  \t PORT: 6380"
-	    redis-server --port 6381 --slaveof 127.0.0.1 6379 --daemonize yes
+	    redis-server /redis_3.conf --port 6381 --slaveof 127.0.0.1 6379 --daemonize yes
 		if [ $? -eq 0 ]; then
 		    echo "SLAVE  \t PORT: 6381"
 		    redis-server /sentinel_1.conf --sentinel --daemonize yes
